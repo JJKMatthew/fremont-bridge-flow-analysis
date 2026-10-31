@@ -1,0 +1,25 @@
+[project]
+title_zh = "西雅图弗里蒙特桥自行车与滑板车流量的时间序列分析与预测"
+title_en = "Time-Series Analysis and Forecasting of Bicycle and Scooter Traffic on Seattle's Fremont Bridge"
+timezone = "America/Los_Angeles"
+random_seed = 42
+
+[dataset]
+id = "65db-xm6k"
+name = "Fremont Bridge - Combined Bicycle and Scooter Counter"
+landing_page = "https://data.seattle.gov/Transportation/Fremont-Bridge-Combined-Bicycle-and-Scooter-Counte/65db-xm6k/about_data"
+download_url = "https://data.seattle.gov/api/views/65db-xm6k/rows.csv?accessType=DOWNLOAD"
+raw_filename = "fremont_bridge_counts.csv"
+
+[split]
+training_end = "2025-12-31"
+test_start = "2026-01-01"
+
+[paths]
+raw = "data/raw"
+interim = "data/interim"
+processed = "data/processed"
+figures = "outputs/figures"
+tables = "outputs/tables"
+models = "outputs/models"
+

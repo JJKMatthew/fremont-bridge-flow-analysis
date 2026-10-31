@@ -1,0 +1,28 @@
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.env
+.DS_Store
+Thumbs.db
+
+# Generated data and analysis artifacts
+data/raw/*
+data/interim/*
+data/processed/*
+outputs/figures/*
+outputs/tables/*
+outputs/models/*
+
+# Keep directory documentation
+!data/**/README.md
+!outputs/**/README.md
+
+# Local tools are bootstrapped per machine
+tools/
+
