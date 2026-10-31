@@ -30,11 +30,21 @@
 .\scripts\uv.ps1 run pytest
 ```
 
+完成数据准备并依次重跑主题 1、主题 2：
+
+```powershell
+.\scripts\uv.ps1 run fremont through-theme2
+```
+
 启动 marimo：
 
 ```powershell
 .\scripts\uv.ps1 run marimo edit
 ```
+
+可在界面中依次打开 `notebooks/00_data_quality.py`、`01_theme1_review.py` 和
+`02_theme2_review.py`。分析表格写入 `outputs/tables/`，图形同时导出为 PNG 和 HTML 到
+`outputs/figures/theme1/`、`outputs/figures/theme2/`；这些均为可重复生成产物，不提交 Git。
 
 ## Linux / WSL 复现
 
@@ -55,6 +65,8 @@ uv run pytest
 ```
 
 原始数据保存在 `data/raw/`，默认不提交 Git。下载元数据会同时保存为 JSON，以记录下载日期、URL、字节数和 SHA-256。
+
+主题 1 的趋势统计只使用 2013–2025 完整年度；2012 和 2026 是不完整年度，只在图中作为灰色参考点。主题 2 的异常候选会与 `config/external_events.csv` 中的西雅图官方事件窗口按日期重叠关联，关联结果只用于解释，不代表因果关系。
 
 ## 可选模型环境
 

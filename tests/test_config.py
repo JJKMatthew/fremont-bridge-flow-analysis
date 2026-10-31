@@ -19,4 +19,3 @@ def test_configured_paths_stay_inside_repository() -> None:
 
     for key in config.values["paths"]:
         assert config.path(key).is_relative_to(root)
-

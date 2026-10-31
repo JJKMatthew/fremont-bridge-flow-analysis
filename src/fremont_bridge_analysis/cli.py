@@ -10,6 +10,9 @@ from collections.abc import Sequence
 
 from fremont_bridge_analysis.config import load_project_config
 from fremont_bridge_analysis.data.download import download_dataset
+from fremont_bridge_analysis.data.prepare import prepare_data
+from fremont_bridge_analysis.theme1.analysis import run_theme1
+from fremont_bridge_analysis.theme2.analysis import run_theme2
 
 CORE_MODULES = (
     "altair",
@@ -62,6 +65,10 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers = parser.add_subparsers(dest="command", required=True)
     subparsers.add_parser("doctor", help="check the local development environment")
     subparsers.add_parser("download", help="download and fingerprint the raw dataset")
+    subparsers.add_parser("prepare", help="validate and prepare the raw dataset")
+    subparsers.add_parser("theme1", help="run annual and monthly analysis")
+    subparsers.add_parser("theme2", help="run weekly/daily PCA and clustering analysis")
+    subparsers.add_parser("through-theme2", help="prepare data and run themes 1 and 2")
     return parser
 
 
@@ -74,9 +81,29 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(f"Downloaded: {result.data_path}")
         print(f"Metadata: {result.metadata_path}")
         return 0
+    if args.command == "prepare":
+        result = prepare_data(load_project_config())
+        print(f"Processed data: {result.processed_path}")
+        print(f"Quality summary: {result.quality_path}")
+        return 0
+    if args.command == "theme1":
+        result = run_theme1(load_project_config())
+        print(f"Theme 1 summary: {result.summary_path}")
+        return 0
+    if args.command == "theme2":
+        result = run_theme2(load_project_config())
+        print(f"Theme 2 summary: {result.summary_path}")
+        return 0
+    if args.command == "through-theme2":
+        config = load_project_config()
+        prepare_data(config)
+        theme1 = run_theme1(config)
+        theme2 = run_theme2(config)
+        print(f"Theme 1 summary: {theme1.summary_path}")
+        print(f"Theme 2 summary: {theme2.summary_path}")
+        return 0
     raise AssertionError(f"Unhandled command: {args.command}")
 
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

@@ -56,4 +56,3 @@ def load_project_config(root: Path | None = None) -> ProjectConfig:
         raise ValueError(f"Missing configuration sections: {names}")
 
     return ProjectConfig(root=project_root, values=values)
-
